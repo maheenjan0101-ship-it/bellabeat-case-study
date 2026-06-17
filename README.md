@@ -59,8 +59,9 @@ sleep_df = pd.read_csv('sleepDay_merged.csv')
 hourly_steps = pd.read_csv('hourlySteps_merged.csv')
 
 print("All 3 datasets successfully loaded into the workspace!")
+```
 
-Log Output Summary: All 3 datasets successfully loaded into the workspace!
+* **Log Output Summary:** `All 3 datasets successfully loaded into the workspace!`
 
 #### Cell 2: Initial Inspection (Daily Activity Data)
 ```python
@@ -69,8 +70,8 @@ activity_df.info()
 
 print("\n--- First 5 Rows Preview ---")
 activity_df.head()
-
-Log Output Summary: 940 entries, 15 columns. 0 missing values. ActivityDate detected as a text string (object) blocking time-series slicing.
+```
+* **Log Output Summary:** 940 entries, 15 columns. 0 missing values. `ActivityDate` detected as a text string (`object`) blocking time-series slicing.
 
 #### Cell 3: Clean Daily Activity Data
 ```python
@@ -87,8 +88,9 @@ activity_df = activity_df.drop_duplicates()
 print(f"Format Fix: 'ActivityDate' type is now {activity_df['ActivityDate'].dtype}")
 print(f"Sample Size: There are {unique_activity_users} unique users in this dataset.")
 print(f"Duplicates found and removed: {activity_duplicates}")
+```
 
-Log Output Summary: Converted to datetime64[ns]. 33 unique users confirmed (n > 30). 0 duplicates removed.
+* **Log Output Summary:** Converted to `datetime64[ns]`. 33 unique users confirmed (n > 30). 0 duplicates removed.
 
 #### Cell 4: Initial Inspection & Clean Sleep Data
 ```python
@@ -103,19 +105,23 @@ sleep_df['SleepDay'] = pd.to_datetime(sleep_df['SleepDay'], errors='coerce')
 # Verify results
 print(f"\nCleaned Sleep Duplicates: {sleep_df.duplicated().sum()}")
 print(f"Unique users in Sleep dataset: {sleep_df['Id'].nunique()}")
+```
 
-Log Output Summary: 3 hidden duplicate records successfully purged. Unique user count dropped to 24, confirming that 9 users omitted sleep tracking.
+* **Log Output Summary:** 3 hidden duplicate records successfully purged. Unique user count dropped to 24, confirming that 9 users omitted sleep tracking.
 
 #### Cell 5: Initial Inspection (Hourly Steps Data)
+```python
 print("--- Hourly Steps Info ---")
 hourly_steps.info()
 
 print("\n--- Hourly Steps Preview ---")
 display(hourly_steps.head())
+```
 
-Log Output Summary: 22,099 rows structured. ActivityHour detected as string/object. 33 unique users mapped.
+* **Log Output Summary:** 22,099 rows structured. `ActivityHour` detected as string/object. 33 unique users mapped.
 
 #### Cell 6: Clean and Feature Engineer Hourly Steps Data
+```python
 # Convert ActivityHour to datetime
 hourly_steps['ActivityHour'] = pd.to_datetime(hourly_steps['ActivityHour'], errors='coerce')
 
@@ -132,10 +138,12 @@ print(f"Format Fix: 'ActivityHour' type is now {hourly_steps['ActivityHour'].dty
 print(f"Feature Engineering: Extracted hours ({hourly_steps['Hour'].min()}-{hourly_steps['Hour'].max()}) and isolated pure Dates.")
 print(f"Hourly Duplicates found and removed: {hourly_duplicates}")
 print(f"Unique users verified in hourly records: {unique_hourly_users}")
+```
 
-Log Output Summary: Timestamps parsed into uniform datetime format. Hourly attributes (0-23) and calendar Dates engineered. 0 duplicates removed.
+* **Log Output Summary:** Timestamps parsed into uniform datetime format. Hourly attributes (0-23) and calendar Dates engineered. 0 duplicates removed.
 
 #### Cell 7: Structural Column Renaming and Master Composite Merge
+```python
 # Standardize joining keys across dataframes
 activity_df = activity_df.rename(columns={'ActivityDate': 'Date'})
 sleep_df = sleep_df.rename(columns={'SleepDay': 'Date'})
@@ -146,8 +154,9 @@ combined_df = pd.merge(activity_df, sleep_df, on=['Id', 'Date'], how='inner')
 print("--- Combined Master Dataset Info ---")
 combined_df.info()
 print(f"\nUnique users in combined data: {combined_df['Id'].nunique()}")
+```
 
-Log Output Summary: Compiled master data with 410 completely integrated rows across the 24 active sleep-tracking users.
+* **Log Output Summary:** Compiled master data with 410 completely integrated rows across the 24 active sleep-tracking users.
 
 #### Cell 8: Mount Google Drive and Secure Clean Data Export
 ```python
@@ -171,16 +180,17 @@ hourly_steps.to_csv(f'{target_directory}/hourly_steps_clean.csv', index=False)
 print("\n" + "="*60)
 print(f"PIPELINE SECURED: Clean data permanently synced to:\n{target_directory}")
 print("="*60)
+```
 
-Log Output Summary: PIPELINE SECURED: Clean data permanently synced to: /content/drive/MyDrive/Bellabeat_Case_Study/02_Clean_Data. Assets successfully locked to permanent cloud storage, closing out the Processing pipeline.
+* **Log Output Summary:** `PIPELINE SECURED: Clean data permanently synced to: /content/drive/MyDrive/Bellabeat_Case_Study/02_Clean_Data`. Assets successfully locked to permanent cloud storage, closing out the Processing pipeline.
 
 ---
 
-**## Phase 4: Analyze (Exploratory Data Analysis in Python)**
+## Phase 4: Analyze (Exploratory Data Analysis in Python)
 Before introducing the clean assets into business intelligence systems, programmatic Exploratory Data Analysis (EDA) was executed inside Google Colab to pull baseline trend summaries and pinpoint user habits.
 
-**1. 1. Central Tendency Benchmarks**
-## Cell 8: Summary Statistics (Transition to Analyze Phase)
+## **1. 1. Central Tendency Benchmarks**
+####  Cell 8: Summary Statistics (Transition to Analyze Phase)
 Summary statistics were extracted on the merged tables to review user compliance against global CDC health metrics:
 ```python
 # Generate summary statistics for key daily metrics
@@ -188,16 +198,16 @@ analysis_summary = combined_df[['TotalSteps', 'VeryActiveMinutes', 'SedentaryMin
 
 print("--- Key Daily Metrics Summary Statistics ---")
 display(analysis_summary.round(2))
+```
 
-Log Output Summary:
-**The Daily Steps Gap**: Users averaged 8,514.91 steps per day, outlining a ~1,485-step deficit against the universal target of 10,000 steps.
+*  **The Daily Steps Gap**: Users averaged **8,514.91 steps per day**, outlining a ~1,485-step deficit against the universal target of 10,000 steps.
 
-**The Sedentary Reality**: Waking windows are majorly desk-bound, showing an average of 712.10 minutes (11.87 hours) completely immobile each day.
+*  **The Sedentary Reality**: Waking windows are majorly desk-bound, showing an average of **712.10 minutes (11.87 hours)** completely immobile each day.
 
-**The Sleep Latency Gap**: Users spend an average of 458.48 minutes in bed but only manage 419.17 minutes asleep. This isolates a clear 39.31-minute sleep latency window spent awake or trying to fall asleep.
+*  **The Sleep Latency Gap**: Users spend an average of 458.48 minutes in bed but only manage 419.17 minutes asleep. This isolates a clear **39.31-minute sleep latency window** spent awake or trying to fall asleep.
 
-**2. Bivariate Distribution Slicing**
-## Cell 9: Scatter Plot - Steps vs. Calories Burned
+## **2. Bivariate Distribution Slicing**
+#### Cell 9: Scatter Plot - Steps vs. Calories Burned
 
 ```python
 # Visualizing Steps vs. Calories
@@ -216,10 +226,12 @@ plt.ylabel('Calories Burned', fontsize=12)
 plt.grid(True, linestyle='--', alpha=0.5)
 
 plt.show()
+```
+![Daily Steps vs Calories Burned Plot](eda_visuals/steps_vs_calories.png)
 
-**Analysis Inference**: Confirmed a strong positive correlation between motion volume and energy expenditure. However, significant vertical dispersion indicates that specific high-intensity training durations (VeryActiveMinutes) drive top-tier caloric burn far more effectively than flat walking volume.
+**Analysis Inference**: Confirmed a strong positive correlation between motion volume and energy expenditure. However, significant vertical dispersion indicates that specific high-intensity training durations (`VeryActiveMinutes`) drive top-tier caloric burn far more effectively than flat walking volume.
 
-## Cell 10: Scatter Plot - Steps vs. Total Minutes Asleep
+#### Cell 10: Scatter Plot - Steps vs. Total Minutes Asleep
 
 ```python
 # Visualizing Steps vs. Minutes Asleep
@@ -235,10 +247,11 @@ plt.ylabel('Minutes Asleep', fontsize=12)
 plt.grid(True, linestyle='--', alpha=0.5)
 
 plt.show()
+```
 
 **Analysis Inference**: A slight counterintuitive negative trend line emerged. Users achieving peak steps (15,000+) tend to experience shortened sleep windows due to squashing their schedules to fit workouts in. Safe, optimal 7-to-8-hour sleep spaces cluster cleanly in the modest 4,000 to 11,000 step threshold.
 
-# Cell 11: Bar Chart - Average Hourly Steps
+#### Cell 11: Bar Chart - Average Hourly Steps
 
 ```python
  # Calculate and Visualize Average Hourly Steps
@@ -259,10 +272,11 @@ plt.xticks(range(0, 24))
 plt.grid(True, axis='y', linestyle='--', alpha=0.5)
 
 plt.show()
+```
 
 **Analysis Inference**: Granular intraday analysis mapped out exactly when consumers are physically active. The data reveals an initial baseline movement bump between 12:00 PM and 2:00 PM (lunch breaks), followed by a massive, sustained peak activity surge between 5:00 PM and 7:00 PM (Hours 17–19), showing when users actively dedicate time to post-work travel or exercise.
 
-## Cell 12: Aggregate Activity and Sleep by Day of Week
+#### Cell 12: Aggregate Activity and Sleep by Day of Week
 ```python
 # Analyze Activity and Sleep by Day of the Week
 # Create a chronologically ordered Day of Week column
@@ -274,10 +288,11 @@ weekday_summary = combined_df.groupby('DayOfWeek', observed=False)[['TotalSteps'
 
 print("--- Average Steps and Sleep by Day of the Week ---")
 display(weekday_summary.round(2))
+```
 
 **Analysis Inference**: Summarizing the data by day reveals the macro cycles of the user base. Saturday stands out as the day with the highest physical locomotion (steps), while Sunday shows a biological inversion: active steps drop to their lowest point while sleep metrics expand to their weekly peak.
 
-## Cell 13: Render Weekly Macro Behavioral Grid
+#### Cell 13: Render Weekly Macro Behavioral Grid
 ```python
 # Visualize Day of the Week Trends
 import matplotlib.pyplot as plt
@@ -308,6 +323,7 @@ axes[1].legend()
 
 plt.tight_layout()
 plt.show()
+```
 
 **Analysis Inference**: This side-by-side visualization maps out behavioral trends against healthy benchmarks. The right plot confirms that during the middle of the workweek (specifically Tuesday and Thursday nights), users regularly fall short of the recommended 7-hour (420 minutes) sleep line, pointing to a severe mid-week rest deficit.
 
@@ -316,41 +332,43 @@ plt.show()
 ## Phase 5: Data Modeling & Sharing (Power BI Transformation & Dashboard)
 To scale these static insights into an enterprise environment where users can filter metrics on demand, the cleaned files were pulled from Google Drive straight into Power BI Desktop.
 
-**1. Advanced ETL & Semantic Modeling (Data Engineering)**
+## **1. Advanced ETL & Semantic Modeling (Data Engineering)**
 To establish a valid Star Schema and secure relational integrity, the following structural transformations were executed inside the Power BI Power Query editor:
 
-**Data Type Mismatch Defense (Id to Text Casting)**: By default, smart device user IDs load as numeric 64-bit integers (int64). Because unique identifier codes function as categorical labels rather than aggregatable variables, all Id **columns were manually converted to Text strings**. This prevents Power BI from generating distorted, automatic mathematical calculations of user identifiers.
+* **Data Type Mismatch Defense (Id to Text Casting)**: By default, smart device user IDs load as numeric 64-bit integers (`int64`). Because unique identifier codes function as categorical labels rather than aggregatable variables, **all** `Id` **columns were manually converted to Text strings**. This prevents Power BI from generating distorted, automatic mathematical calculations of user identifiers.
 
-**Engineering the Composite Identity Sequence (UserDateKey)**: Because multiple rows exist for single users across separate tracking tables, a robust surrogate join key was generated. A new custom column was engineered by merging the text-converted user Id directly with the clean calendar Date parameter:
+* **Engineering the Composite Identity Sequence (UserDateKey)**: Because multiple rows exist for single users across separate tracking tables, a robust surrogate join key was generated. A new custom column was engineered by merging the text-converted user `Id` directly with the clean calendar `Date` parameter:
 Code snippet
+```
 // Power Query Custom Column Formula
 UserDateKey = [Id] & "_" & Text.From([Date])
+```
 
-**Star Schema Realization (1 : infty)**: Using these unique surrogate strings, a stable relational database model was mapped:
-**Fact Table (Hub Asset)**: daily_activity_sleep_clean
-**Dimension Array (Granular Asset)**: Connected to the deep hourly_steps_clean workspace.
-**Model Link**: Built a clean** One-to-Many (1 : infty) relationship** using the unified UserDateKey column to facilitate lag-free filtering across granular tracking points.
+* **Star Schema Realization (1 : infty)**: Using these unique surrogate strings, a stable relational database model was mapped:
+    * **Fact Table (Hub Asset)**: `daily_activity_sleep_clean`
+    * **Dimension Array (Granular Asset)**: Connected to the deep `hourly_steps_clean` workspace.
+    * **Model Link**: Built a clean  **One-to-Many (1 : infty) relationship** using the unified `UserDateKey` column to facilitate lag-free filtering across granular tracking points.
 
 **2. DAX Engineering & Custom Business Logic**
 To bypass native sorting constraints and construct practical consumer lifecycle categories, custom DAX formulas were compiled:
 
-**Chronological Day Layout Sorting:**
-Code snippet
+* **Chronological Day Layout Sorting:**
+```
 DayOfWeek_Sort = WEEKDAY('hourly_steps_clean'[Date], 2)
-
-Why it was created: This index acts as the underlying sort-by-column rule behind all layout axes, ensuring visual charts display data sequentially from Monday to Sunday instead of defaulting alphabetically.
+```
+  * Why it was created: This index acts as the underlying sort-by-column rule behind all layout axes, ensuring visual charts display data sequentially from Monday to Sunday instead of defaulting alphabetically.
 
 ### 3. UI/UX Dashboard Layout Design Principles
 The public-facing analytics board was customized to establish a clean, executive-ready presentation utilizing a high-contrast visual hierarchy:
 
-**Brand-Aligned Light-Mode Aesthetic:** Developed the entire reporting interface over a crisp, professional light background that directly matches Bellabeat’s corporate brand guidelines. This bright, minimalist aesthetic was intentionally selected to mirror the premium, fashion-forward design language of their female-focused product ecosystem (such as the screenless Bellabeat Leaf jewelry), maximizing visual appeal and readability for executive stakeholders.
-**Vertical KPI Sidebar (Far Right):** Layered three high-level metric summary cards in a vertical stack along the right-hand margin to instantly showcase core baseline performance metrics across the participant pool:
-    **Average Steps:** Capturing general locomotive volume.
-    **Average Sedentary Hours:** Quantifying daily physical immobility.
-    **Average Sleep Hours:** Measuring overnight recovery compliance.
-**Bivariate Analysis Panel (Left Frame):** Dedicated the prominent left visual zone to a large **Daily Steps vs. Calories Burned Scatter Plot** featuring an integrated positive linear regression line to expose the exact velocity of user energy expenditure.
-**Intraday Locomotion Breakdown (Center Frame)**: Deployed a comprehensive Hourly Steps Bar Chart across the main view to display real-time habit structures hour-by-hour, uncovering the exact 3:00 PM Mid-Week Corporate Slump (Hour 15 immobility drop) followed immediately by the 5:00 PM Post-Work Surge (Hour 17 recovery jump).
-**Day of the Week Slicer Panel**: Positioned a clean categorical button row along the top of the layout to allow corporate researchers to dynamically toggle focus between individual days of the week on demand, giving stakeholders the capacity to instantly shift metrics between typical weekdays and weekend states.
+* **Brand-Aligned Light-Mode Aesthetic:** Developed the entire reporting interface over a crisp, professional light background that directly matches Bellabeat’s corporate brand guidelines. This bright, minimalist aesthetic was intentionally selected to mirror the premium, fashion-forward design language of their female-focused product ecosystem (such as the screenless Bellabeat Leaf jewelry), maximizing visual appeal and readability for executive stakeholders.
+* **Vertical KPI Sidebar (Far Right):** Layered three high-level metric summary cards in a vertical stack along the right-hand margin to instantly showcase core baseline performance metrics across the participant pool:
+    * **Average Steps:** Capturing general locomotive volume.
+    * **Average Sedentary Hours:** Quantifying daily physical immobility.
+    * **Average Sleep Hours:** Measuring overnight recovery compliance.
+* **Bivariate Analysis Panel (Left Frame):** Dedicated the prominent left visual zone to a large **Daily Steps vs. Calories Burned Scatter Plot** featuring an integrated positive linear regression line to expose the exact velocity of user energy expenditure.
+* **Intraday Locomotion Breakdown (Center Frame)**: Deployed a comprehensive **Hourly Steps Bar Chart (24-Hour Locomotion)** across the main view to display real-time habit structures hour-by-hour, uncovering the exact **3:00 PM Mid-Week Corporate Slump** (Hour 15 immobility drop) followed immediately by the **5:00 PM Post-Work Surge** (Hour 17 recovery jump).
+* **Day of the Week Slicer Panel**: Positioned a clean categorical button row along the top of the layout to allow corporate researchers to dynamically toggle focus between individual days of the week on demand, giving stakeholders the capacity to instantly shift metrics between typical weekdays and weekend states.
 
 ---
 
@@ -360,24 +378,26 @@ To maximize commercial growth, the analytical core of this case study is transla
 
 ### 1. Engine & Product Optimization: Context-Aware Push Notifications
 Instead of bombarding users with repetitive, generic "hit 10,000 steps" alerts that cause notification fatigue, Bellabeat’s software engine should deliver automated, time-sensitive interventions engineered directly around the user lifestyle cycles uncovered during analysis:
-**The 3:15 PM Slump Intervention:** Automate a supportive notification during the identified 3:00 PM mid-week corporate sedentary lull to drive app engagement and physical movement:
+  * **The 3:15 PM Slump Intervention:** Automate a supportive notification during the identified 3:00 PM mid-week corporate sedentary lull to drive app engagement and physical movement:
+
     >  **Bellabeat Alert:** *"Feeling the mid-afternoon desk slump? Step away for a quick 5-minute stretch to clear your mind and unlock your daily energy goal."*
-**The Mid-Week Sleep Deficit Alert:** On Tuesday and Thursday nights at 9:30 PM (the data-proven workweek sleep deficit nights), bypass high-intensity physical metrics entirely to prioritize and encourage rest:
+  * **The Mid-Week Sleep Deficit Alert:** On Tuesday and Thursday nights at 9:30 PM (the data-proven workweek sleep deficit nights), bypass high-intensity physical metrics entirely to prioritize and encourage rest:
+
     > **Bellabeat Alert:** "Tonight is historically a low-sleep night. Let’s protect your energy—turn off screens and sample our 10-minute guided breathing soundscape."*
 
 ---
 
 ### 2. Software Subscription Growth: Monetizing the Sleep Latency Window
 Summary statistics inside Python and Power BI identified a massive **39.31-minute sleep latency gap** where users are awake in bed trying to fall asleep or rest. This friction point represents an immediate monetization window for the premium Bellabeat Membership tier:
-**Targeted Premium Content Delivery:** Program the companion app to detect when a user is resting in bed but remains awake, dynamically surfacing premium subscription audio content—such as custom sleep-induction meditation tracks, localized breathwork loops, or customized soundscapes geared toward down-regulating the nervous system.
-**Algorithmic Habit Tracking (ROI Proof):** Use the device's ongoing telemetry data to mathematically prove subscription value. Generate personalized weekly progression charts for subscribers that show exactly how their sleep latency window shrinks and deep recovery expands due to consistent content consumption.
+  * **Targeted Premium Content Delivery:** Program the companion app to detect when a user is resting in bed but remains awake, dynamically surfacing premium subscription audio content—such as custom sleep-induction meditation tracks, localized breathwork loops, or customized soundscapes geared toward down-regulating the nervous system.
+  * **Algorithmic Habit Tracking (ROI Proof):** Use the device's ongoing telemetry data to mathematically prove subscription value. Generate personalized weekly progression charts for subscribers that show exactly how their sleep latency window shrinks and deep recovery expands due to consistent content consumption.
 
 ---
 
 ### 3. Global Marketing Redesign: Celebrating Active Recovery
 The direct inverse relationship between Saturday's extreme physical exertion and Sunday's deep rest provides a foundational narrative for brand positioning that respects women's natural weekly rhythms:
-**The "Sunday Reset" Campaign:** Pivot marketing assets away from rigid, hyper-competitive tracking behavior. Launch a comprehensive brand campaign tailored to modern women that destigmatizes rest, celebrating Sunday as an essential act of biological mindfulness and recovery rather than a "missed" step goal.
-**The "Continuous Tracking" Narrative:** Capitalize on the 27% sleep-tracking drop-off found in competitive device data due to bulky designs. Promote the lightweight, battery-efficient, luxury aesthetic of the screenless Bellabeat Leaf jewelry as the premium, friction-free alternative that tracks wellness variables elegantly around the clock without compromising comfort or personal style.
+  * **The "Sunday Reset" Campaign:** Pivot marketing assets away from rigid, hyper-competitive tracking behavior. Launch a comprehensive brand campaign tailored to modern women that destigmatizes rest, celebrating Sunday as an essential act of biological mindfulness and recovery rather than a "missed" step goal.
+  * **The "Continuous Tracking" Narrative:** Capitalize on the 27% sleep-tracking drop-off found in competitive device data due to bulky designs. Promote the lightweight, battery-efficient, luxury aesthetic of the screenless Bellabeat Leaf jewelry as the premium, friction-free alternative that tracks wellness variables elegantly around the clock without compromising comfort or personal style.
 
 ---
 
