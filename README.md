@@ -227,7 +227,7 @@ plt.grid(True, linestyle='--', alpha=0.5)
 
 plt.show()
 ```
-![Daily Steps vs Calories Burned Plot](eda_visuals/Daily_Steps_vs._Calories_Burned.png)
+![Daily Steps vs Calories Burned Plot](eda_visuals/daily_steps_vs_calories_burned.png)
 
 **Analysis Inference**: Confirmed a strong positive correlation between motion volume and energy expenditure. However, significant vertical dispersion indicates that specific high-intensity training durations (`VeryActiveMinutes`) drive top-tier caloric burn far more effectively than flat walking volume.
 
@@ -248,7 +248,7 @@ plt.grid(True, linestyle='--', alpha=0.5)
 
 plt.show()
 ```
-![Daily Steps vs Total Minutes Asleep Plot](eda_visuals/daily_steps_vs_total_mintes_asleep.png)
+![Daily Steps vs Total Minutes Asleep Plot](eda_visuals/daily_steps_vs_total_minutes_asleep.png)
 
 **Analysis Inference**: A slight counterintuitive negative trend line emerged. Users achieving peak steps (15,000+) tend to experience shortened sleep windows due to squashing their schedules to fit workouts in. Safe, optimal 7-to-8-hour sleep spaces cluster cleanly in the modest 4,000 to 11,000 step threshold.
 
@@ -364,6 +364,13 @@ DayOfWeek_Sort = WEEKDAY('hourly_steps_clean'[Date], 2)
 
 ### 3. UI/UX Dashboard Layout Design Principles
 The public-facing analytics board was customized to establish a clean, executive-ready presentation utilizing a high-contrast visual hierarchy:
+![Bellabeat Executive Dashboard](dashboard/Bellabeat.png)
+---
+
+### Power BI Desktop File
+[**Download Bellabeat_Dashboard.pbix**](dashboard/bellabeat_analysis.pbix)
+
+---
 
 * **Brand-Aligned Light-Mode Aesthetic:** Developed the entire reporting interface over a crisp, professional light background that directly matches Bellabeat’s corporate brand guidelines. This bright, minimalist aesthetic was intentionally selected to mirror the premium, fashion-forward design language of their female-focused product ecosystem (such as the screenless Bellabeat Leaf jewelry), maximizing visual appeal and readability for executive stakeholders.
 * **Vertical KPI Sidebar (Far Right):** Layered three high-level metric summary cards in a vertical stack along the right-hand margin to instantly showcase core baseline performance metrics across the participant pool:
