@@ -227,7 +227,7 @@ plt.grid(True, linestyle='--', alpha=0.5)
 
 plt.show()
 ```
-![Daily Steps vs Calories Burned Plot](eda_visuals/steps_vs_calories.png)
+![Daily Steps vs Calories Burned Plot](eda_visuals/Daily_Steps_vs._Calories_Burned.png)
 
 **Analysis Inference**: Confirmed a strong positive correlation between motion volume and energy expenditure. However, significant vertical dispersion indicates that specific high-intensity training durations (`VeryActiveMinutes`) drive top-tier caloric burn far more effectively than flat walking volume.
 
@@ -248,6 +248,7 @@ plt.grid(True, linestyle='--', alpha=0.5)
 
 plt.show()
 ```
+![Daily Steps vs Total Minutes Asleep Plot](eda_visuals/daily_steps_vs_total_mintes_asleep.png)
 
 **Analysis Inference**: A slight counterintuitive negative trend line emerged. Users achieving peak steps (15,000+) tend to experience shortened sleep windows due to squashing their schedules to fit workouts in. Safe, optimal 7-to-8-hour sleep spaces cluster cleanly in the modest 4,000 to 11,000 step threshold.
 
@@ -273,6 +274,7 @@ plt.grid(True, axis='y', linestyle='--', alpha=0.5)
 
 plt.show()
 ```
+![Average Steps Taken Throughout the Day](eda_visuals/average_steps_taken_throughout_the_day.png)
 
 **Analysis Inference**: Granular intraday analysis mapped out exactly when consumers are physically active. The data reveals an initial baseline movement bump between 12:00 PM and 2:00 PM (lunch breaks), followed by a massive, sustained peak activity surge between 5:00 PM and 7:00 PM (Hours 17–19), showing when users actively dedicate time to post-work travel or exercise.
 
@@ -324,6 +326,8 @@ axes[1].legend()
 plt.tight_layout()
 plt.show()
 ```
+
+![Weekly Activity and Sleep Metrics Matrix](eda_visuals/side_by_side_charts.png)
 
 **Analysis Inference**: This side-by-side visualization maps out behavioral trends against healthy benchmarks. The right plot confirms that during the middle of the workweek (specifically Tuesday and Thursday nights), users regularly fall short of the recommended 7-hour (420 minutes) sleep line, pointing to a severe mid-week rest deficit.
 
