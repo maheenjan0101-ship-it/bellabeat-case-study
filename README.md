@@ -4,8 +4,6 @@
 **Date:** June 2026  
 **Tools Used:** Python (Pandas, NumPy, Matplotlib, Seaborn), Power BI Desktop
 
-**Dataset Scale:** 18 CSV Files / 30 Unique Users (April 2016 – May 2016)
-
 ---
 
 ## Executive Summary
