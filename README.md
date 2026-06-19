@@ -5,6 +5,8 @@
 **Tools Used:** Python (Pandas, NumPy, Matplotlib, Seaborn), Power BI Desktop
 **Dataset Scale:** 18 CSV Files / 30 Unique Users (April 2016 – May 2016)
 
+---
+
 
 ## Executive Summary
 This case study analyzes public smart-tracker data to uncover distinct consumer physical activity, sedentary, and sleep habits. Utilizing **Python (Pandas, NumPy, Matplotlib, Seaborn)** for algorithmic data cleaning and exploratory data analysis, and **Power BI Desktop** for semantic modeling and interactive visualization, the project maps a detailed 7-day lifestyle cycle. The ultimate insights are translated into tactical, high-yield product and digital marketing recommendations to drive Bellabeat's subscription ecosystem and global brand equity.
