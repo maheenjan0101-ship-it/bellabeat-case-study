@@ -336,7 +336,7 @@ plt.show()
 ## Phase 5: Data Modeling & Sharing (Power BI Transformation & Dashboard)
 To scale these static insights into an enterprise environment where users can filter metrics on demand, the cleaned files were pulled from Google Drive straight into Power BI Desktop.
 
-## **1. Advanced ETL & Semantic Modeling (Data Engineering)**
+## **1. Data ETL & Semantic Modeling (Data Engineering)**
 To establish a valid Star Schema and secure relational integrity, the following structural transformations were executed inside the Power BI Power Query editor:
 
 * **Data Type Mismatch Defense (Id to Text Casting)**: By default, smart device user IDs load as numeric 64-bit integers (`int64`). Because unique identifier codes function as categorical labels rather than aggregatable variables, **all** `Id` **columns were manually converted to Text strings**. This prevents Power BI from generating distorted, automatic mathematical calculations of user identifiers.
